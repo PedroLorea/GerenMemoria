@@ -22,29 +22,40 @@ public class LerArquivo {
         try {
             br = new BufferedReader(new FileReader(nomeArquivo));
 
+            int num = 1;
             while ((linha = br.readLine()) != null){
+                
                 System.out.println(linha);
 
                 if(linha.substring(0, 1).equalsIgnoreCase("i")){
-                    for(int i=4; i<=linha.length(); i++){
+                    
+                    for(int i=3; i<=linha.length(); i++){
                         if(linha.substring(i, i+1).equals(",")) break;
                         nome = nome + linha.substring(i, i+1);
                     }
-                    for(int i=7; i<=linha.length(); i++){
+
+                    for(int i=6; i<=linha.length(); i++){
                         if(linha.substring(i, i+1).equals(")")) break;
                         valor = valor + linha.substring(i, i+1);
                     }
+                    
 
-                    programa.put("in", nome);
+                    programa.put(num + "in", nome);
                     valores.put(nome, Integer.parseInt(valor));
+                    nome = "";
+                    valor = "";
+                    num++;
                 }
 
                 else {
-                    for(int i=5; i<=linha.length(); i++){
+                    for(int i=4; i<=linha.length(); i++){
                         if(linha.substring(i, i+1).equals(")")) break;
                         nome = nome + linha.substring(i, i+1);
                     }
-                    programa.put("out", nome);
+                    programa.put(num + "out", nome);
+                    nome = "";
+                    valor = "";
+                    num++;
                 }
             }
 
@@ -55,6 +66,25 @@ public class LerArquivo {
         }
 
         dados = new Dados(programa, valores);
+
+        System.out.println("-------Programa!!-------");
+        for (Map.Entry<String, String> set :
+             programa.entrySet()) {
+ 
+            
+            System.out.println(set.getKey() + " = "
+                               + set.getValue());
+        }
+
+        System.out.println("-------Valores!!----------");
+        for (Map.Entry<String, Integer> set :
+             valores.entrySet()) {
+ 
+            
+            System.out.println(set.getKey() + " = "
+                               + set.getValue());
+        }
+                               
         return dados;
     }
 }
