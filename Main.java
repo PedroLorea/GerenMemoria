@@ -12,22 +12,26 @@ public class Main{
 
         Dados dados = lerArquivo.Armazena("caso1.txt");
 
-        Gerencia gerencia = new Gerencia(dados);
+        Gerencia gerencia = new Gerencia(dados, 16);
 
-        gerencia.worstFit();
+        gerencia.firstFit();
 
 
         //======================Pra quando o programa tiver pronto========================================
         //String arquivo = "";
-        // int op;
+        //int tamanho;
+        //int op;
 
         // System.out.println("Bem-vindo ao Gerenciador de Memória!");
         // System.out.println("Digite o nome do arquivo:");
         // arquivo = in.nextLine();
 
+        // System.out.println("Digite o tamanho da memória");
+        //tamanho = in.nextInt();
+
         // LerArquivo lerArquivo = new LerArquivo();
         // Dados dados = lerArquivo.Armazena(arquivo);
-        // Gerencia gerencia = new Gerencia(dados);
+        // Gerencia gerencia = new Gerencia(dados,tamanho);
 
         // System.out.println("Digite o número da opção desejada:");
         // System.out.println("1- WorstFit   2- BestFit   3- FirstFit   4- CircularFit");
