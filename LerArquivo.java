@@ -84,7 +84,7 @@ public class LerArquivo {
             System.out.println(set.getKey() + " = "
                                + set.getValue());
         }
-                               
+        System.out.println("-----------------------\n");                      
         return dados;
     }
 }

@@ -21,15 +21,19 @@ public class Gerencia {
 
     }
 
+    public void cirucularFit(){
+
+    }
+
+
     public void firstFit(){
+        printTelaMemoria();
+
         for(int i=1; i<=programa.size(); i++){ //Percorre o hash e procura o número (hash ta com numeros para identificar a ordem)
 
             for (Map.Entry<String, String> entrada : programa.entrySet()) { //Pega a entrada
     
                 if(Integer.parseInt(entrada.getKey().substring(0, 1)) == i){ //Ve se é o número 
-        
-                    printTelaMemoria();
-                    printTela("batata");
 
                     if(entrada.getKey().substring(1, 2).equals("i")){ // If para se for "in"
                         String nome = entrada.getValue();
@@ -56,14 +60,15 @@ public class Gerencia {
                                 contador = 0;
                             }
                         }
-                        if (alocado == true) System.out.println("Preenchido com sucesso.");
-                        else System.out.println("Espaço insuficiente de memória.");
+                        printTela(nome, valor, "in");
+                        printTelaMemoria();
 
-                        //printTela(nome);
+                        if (alocado == false) System.out.println("Espaço insuficiente de memória.");
+
                     } 
                     else { // Else para se for "out"
                         String nome = entrada.getValue();
-                        System.out.println("Remover:" + nome);
+                    
                         for(int l=0; l<list.length; l++){
                             if(list[l]==null) {
                                 continue;
@@ -72,15 +77,12 @@ public class Gerencia {
                                 list[l] = null;
                             } 
                         }
+                        printTela(nome, 0, "out");
                         printTelaMemoria();
                     }
                 }
            }
         }
-    }
-
-    public void cirucularFit(){
-
     }
 
 
@@ -90,13 +92,20 @@ public class Gerencia {
             mensagem = mensagem + "|" + list[i] + "|";
         }
         System.out.println(mensagem);
+        System.out.println();
     }
 
 
-    public void printTela(String nomeComando){
+    public void printTela(String nomeComando, int valor, String InOuOut){
+        
         int contadorNull = 0;
-        int contador = 0;
-        String mensagem = "Colocar" + nomeComando + "->   ";
+        String mensagem = "";    
+        if(InOuOut.equals("in"))  {
+            mensagem = "IN(" + nomeComando + ", " + valor + ")   =>    ";
+        }
+        else {
+            mensagem = "OUT(" + nomeComando + ")   =>    ";
+        }
 
         for(int i=0; i<list.length; i++){
             if(list[i] == null){
@@ -105,14 +114,12 @@ public class Gerencia {
             else {
                 if(contadorNull>=1) mensagem = mensagem + "| " + contadorNull + " |" + " ";
                 contadorNull = 0;
-                contador++;
             }
-            if(contador + contadorNull == list.length-1) mensagem = mensagem + "| " + contadorNull + " |" + " ";
+            if(i == list.length-1) mensagem = mensagem + "| " + contadorNull + " |" + " ";
         }
-        if(contadorNull == list.length-1){
-            mensagem = mensagem + "| " + list.length+1 + " |";
-        }
-
+       
+        if(contadorNull == list.length-1) mensagem = mensagem + "| " + contadorNull + " |";
+    
         System.out.println(mensagem);
     }
 }    
