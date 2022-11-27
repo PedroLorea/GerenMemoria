@@ -14,7 +14,11 @@ public class Main{
 
         Gerencia gerencia = new Gerencia(dados, 16);
 
-        gerencia.firstFit();
+        //gerencia.firstFit();
+
+        //gerencia.bestFit();
+
+        gerencia.worstFit();
 
 
         //======================Pra quando o programa tiver pronto========================================
