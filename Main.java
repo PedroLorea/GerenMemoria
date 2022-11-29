@@ -5,16 +5,6 @@ public class Main{
     public static void main(String[] args) {
 
         Scanner in = new Scanner(System.in);
-        
-        // LerArquivo lerArquivo = new LerArquivo();
-
-        // Dados dados = lerArquivo.Armazena("caso3.txt");
-
-        // Gerencia gerencia = new Gerencia(dados, 12);
-
-        // gerencia.bestFit();
-
-
     
         String arquivo = "";
         int tamanho;

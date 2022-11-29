@@ -5,6 +5,7 @@ public class Gerencia {
 
     public Map<String, String> programa = new HashMap<String, String>();
     public Map<String, Integer> valores = new HashMap<String, Integer>();
+    public Map<String, Integer> auxMap = new HashMap<String, Integer>();
     public String [] list;
     
     public Map<Integer, Integer> auxFit = new HashMap<Integer, Integer>();
@@ -12,24 +13,35 @@ public class Gerencia {
     public Gerencia (Dados dados, int tamanho){
         this.programa = dados.programa;
         this.valores = dados.valores;
+        this.auxMap = dados.auxMap;
         list = new String[tamanho];
     }
     
     public void worstFit(){
-        printTelaMemoria();
+        printTela();
 
         for(int i=1; i<=programa.size(); i++){ //Percorre o hash e procura o número (hash ta com numeros para identificar a ordem)
 
             for (Map.Entry<String, String> entrada : programa.entrySet()) { //Pega a entrada
-    
-                if(Integer.parseInt(entrada.getKey().substring(0, 1)) == i){ //Ve se é o número 
+                
+                int tam = 0;
+                for(int o=0; o<entrada.getKey().length(); o++){
+                    if(entrada.getKey().substring(tam, tam+1).equals(" ")) break;
+                    tam++;
+                }
 
-                    if(entrada.getKey().substring(1, 2).equals("i")){ // If para se for "in"
+                if(Integer.parseInt(entrada.getKey().substring(0, tam)) == i){ //Ve se é o número 
+
+                    if(entrada.getKey().substring(1+tam, 2+tam).equals("i")){ // If para se for "in"
                         String nome = entrada.getValue();
                         int valor = valores.get(nome);
                         boolean alocado = false;
                         int inicial = 0;
                         int contador = 0;
+
+                        for(Map.Entry<String, Integer> aux : auxMap.entrySet()){
+                            if(aux.getKey().equals(String.valueOf(i)+nome)) valor = auxMap.get(String.valueOf(i)+nome);
+                        }
 
                         for(int j=0; j<list.length; j++){
 
@@ -95,20 +107,30 @@ public class Gerencia {
     }
 
     public void bestFit(){
-        printTelaMemoria();
+        printTela();
 
         for(int i=1; i<=programa.size(); i++){ //Percorre o hash e procura o número (hash ta com numeros para identificar a ordem)
 
             for (Map.Entry<String, String> entrada : programa.entrySet()) { //Pega a entrada
-    
-                if(Integer.parseInt(entrada.getKey().substring(0, 1)) == i){ //Ve se é o número 
+                
+                int tam = 0;
+                for(int o=0; o<entrada.getKey().length(); o++){
+                    if(entrada.getKey().substring(tam, tam+1).equals(" ")) break;
+                    tam++;
+                }
 
-                    if(entrada.getKey().substring(1, 2).equals("i")){ // If para se for "in"
+                if(Integer.parseInt(entrada.getKey().substring(0, tam)) == i){ //Ve se é o número 
+
+                    if(entrada.getKey().substring(1+tam, 2+tam).equals("i")){ // If para se for "in"
                         String nome = entrada.getValue();
                         int valor = valores.get(nome);
                         boolean alocado = false;
                         int inicial = 0;
                         int contador = 0;
+
+                        for(Map.Entry<String, Integer> aux : auxMap.entrySet()){
+                            if(aux.getKey().equals(String.valueOf(i)+nome)) valor = auxMap.get(String.valueOf(i)+nome);
+                        }
 
                         for(int j=0; j<list.length; j++){
 
@@ -174,30 +196,43 @@ public class Gerencia {
     }
 
     public void circularFit(){
-        printTelaMemoria();
+        printTela();
         int ponteiro = 0;
 
         for(int i=1; i<=programa.size(); i++){ //Percorre o hash e procura o número (hash ta com numeros para identificar a ordem)
 
             for (Map.Entry<String, String> entrada : programa.entrySet()) { //Pega a entrada
-    
-                if(Integer.parseInt(entrada.getKey().substring(0, 1)) == i){ //Ve se é o número 
+                
+                int tam = 0;
+                for(int o=0; o<entrada.getKey().length(); o++){
+                    if(entrada.getKey().substring(tam, tam+1).equals(" ")) break;
+                    tam++;
+                }
 
-                    if(entrada.getKey().substring(1, 2).equals("i")){ // If para se for "in"
+                if(Integer.parseInt(entrada.getKey().substring(0, tam)) == i){ //Ve se é o número 
+
+                    if(entrada.getKey().substring(1+tam, 2+tam).equals("i")){ // If para se for "in"
                         String nome = entrada.getValue();
                         int valor = valores.get(nome);
                         boolean alocado = false;
                         int inicial = 0;
                         int contador = 0;
 
-                        for(int j=ponteiro; j<(list.length-ponteiro) + ponteiro; j++){
+                        for(Map.Entry<String, Integer> aux : auxMap.entrySet()){
+                            if(aux.getKey().equals(String.valueOf(i)+nome)) valor = auxMap.get(String.valueOf(i)+nome);
+                        }
 
-                            if(list[j] == null) {
-                                if(contador == 0) inicial = j;
+                        int guardaPonteiro = ponteiro;
+                        int iterador = 0;
+
+                        for(int j=ponteiro; j<list.length+ponteiro; j++){
+
+                            if(list[iterador] == null) {
+                                if(contador == 0) inicial = iterador;
                                 contador++;
 
                                 if(contador == valor){
-                                    ponteiro = j;
+                                    ponteiro = iterador;
                                     for(int k=inicial; k<contador+inicial; k++){
                                         list[k] = nome;
                                     }
@@ -206,8 +241,11 @@ public class Gerencia {
                                 }
                             }
                             else {
+                                ponteiro = guardaPonteiro;
                                 contador = 0;
                             }
+                            if(iterador == list.length-1) iterador = 0;
+                            iterador++;
                         }
                         
                         printTela(nome, valor, "in");
@@ -237,20 +275,30 @@ public class Gerencia {
 
 
     public void firstFit(){
-        printTelaMemoria();
+        printTela();
 
         for(int i=1; i<=programa.size(); i++){ //Percorre o hash e procura o número (hash ta com numeros para identificar a ordem)
 
             for (Map.Entry<String, String> entrada : programa.entrySet()) { //Pega a entrada
-    
-                if(Integer.parseInt(entrada.getKey().substring(0, 1)) == i){ //Ve se é o número 
+                
+                int tam = 0;
+                for(int o=0; o<entrada.getKey().length(); o++){
+                    if(entrada.getKey().substring(tam, tam+1).equals(" ")) break;
+                    tam++;
+                }
 
-                    if(entrada.getKey().substring(1, 2).equals("i")){ // If para se for "in"
+                if(Integer.parseInt(entrada.getKey().substring(0, tam)) == i){ //Ve se é o número 
+
+                    if(entrada.getKey().substring(1+tam, 2+tam).equals("i")){ // If para se for "in"
                         String nome = entrada.getValue();
                         int valor = valores.get(nome);
                         boolean alocado = false;
                         int inicial = 0;
                         int contador = 0;
+
+                        for(Map.Entry<String, Integer> aux : auxMap.entrySet()){
+                            if(aux.getKey().equals(String.valueOf(i)+nome)) valor = auxMap.get(String.valueOf(i)+nome);
+                        }
 
                         for(int j=0; j<list.length; j++){
 
@@ -301,6 +349,22 @@ public class Gerencia {
         for(int i=0; i<list.length ; i++){
             mensagem = mensagem + "|" + list[i] + "|";
         }
+        System.out.println(mensagem);
+        System.out.println();
+    }
+
+    public void printTela(){
+
+        int contadorNull = 0;
+        String mensagem = "           =>    ";   
+
+        for(int i=0; i<list.length; i++){
+            if(list[i] == null){
+                contadorNull++;
+            }
+        }
+        if(contadorNull>=1) mensagem = mensagem + "| " + contadorNull + " |" + " ";
+
         System.out.println(mensagem);
         System.out.println();
     }

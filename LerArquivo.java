@@ -9,6 +9,7 @@ public class LerArquivo {
 
     public Map<String, String> programa = new HashMap<String, String>();
     public Map<String, Integer> valores = new HashMap<String, Integer>();
+    public Map<String, Integer> auxMap = new HashMap<String, Integer>();
 
     public Dados Armazena(String nomeArquivo) {
 
@@ -34,21 +35,19 @@ public class LerArquivo {
                     for(int i=3; i<=linha.length(); i++){
                         if(linha.substring(i, i+1).equals(",")) break;
                         cont++;
-                        System.out.println("cont dentro" + cont);
                         nome = nome + linha.substring(i, i+1);
                     }
-
-                    System.out.println("cont" + cont);
 
                     for(int i=6+cont; i<=linha.length(); i++){
                         if(linha.substring(i, i+1).equals(")")) break;
                         valor = valor + linha.substring(i, i+1);
-                        System.out.println("Valor= " + valor);
                     }
-                    
 
-                    programa.put(num + "in", nome);
-                    valores.put(nome, Integer.parseInt(valor));
+                    if(temNome(nome) == true) {
+                        auxMap.put(num + nome, Integer.parseInt(valor));
+                    } else valores.put(nome, Integer.parseInt(valor));
+
+                    programa.put(num + " in", nome);
                     nome = "";
                     valor = "";
                     num++;
@@ -59,7 +58,7 @@ public class LerArquivo {
                         if(linha.substring(i, i+1).equals(")")) break;
                         nome = nome + linha.substring(i, i+1);
                     }
-                    programa.put(num + "out", nome);
+                    programa.put(num + " out", nome);
                     nome = "";
                     valor = "";
                     num++;
@@ -72,27 +71,43 @@ public class LerArquivo {
             e.printStackTrace();
         }
 
-        dados = new Dados(programa, valores);
+        dados = new Dados(programa, valores, auxMap);
 
-        // System.out.println("-------Programa!!-------");
-        // for (Map.Entry<String, String> set :
-        //      programa.entrySet()) {
+        System.out.println("-------Programa!!-------");
+        for (Map.Entry<String, String> set :
+             programa.entrySet()) {
  
             
-        //     System.out.println(set.getKey() + " = "
-        //                        + set.getValue());
-        // }
+            System.out.println(set.getKey() + " = "
+                               + set.getValue());
+        }
 
-        // System.out.println("-------Valores!!----------");
-        // for (Map.Entry<String, Integer> set :
-        //      valores.entrySet()) {
+        System.out.println("-------Valores!!----------");
+        for (Map.Entry<String, Integer> set :
+             valores.entrySet()) {
  
             
-        //     System.out.println(set.getKey() + " = "
-        //                        + set.getValue());
-        // }
-        // System.out.println("-----------------------\n");         
+            System.out.println(set.getKey() + " = "
+                               + set.getValue());
+        }
+        System.out.println("-----------------------\n");  
+        
+        System.out.println("-------auxMap!!-----");
+        for (Map.Entry<String, Integer> set :
+             auxMap.entrySet()) {
+ 
+            
+            System.out.println(set.getKey() + " = "
+                               + set.getValue());
+        }
 
         return dados;
+    }
+
+    public boolean temNome(String nome){
+        for (Map.Entry<String, String> entrada : programa.entrySet()) { 
+            if(entrada.getValue().equals(nome)) return true;
+        }
+        return false;
     }
 }
