@@ -74,7 +74,7 @@ public class Gerencia {
                             }
                         }
 
-                        if(melhorEspaco != 9999){
+                        if(melhorLugar != 9999){
                             for(int l = melhorLugar; l < melhorLugar+valor; l++){
                                 list[l] = nome;
                             }
@@ -82,7 +82,6 @@ public class Gerencia {
                         }
                         auxFit.clear();
                         printTela(nome, valor, "in");
-                        printTelaMemoria();
 
                         if (alocado == false) System.out.println("ESPAÇO INSUFICIENTE DE MEMÓRIA.");
 
@@ -99,7 +98,6 @@ public class Gerencia {
                             } 
                         }
                         printTela(nome, 0, "out");
-                        printTelaMemoria();
                     }
                 }
            }
@@ -171,7 +169,6 @@ public class Gerencia {
                         }
                         auxFit.clear();
                         printTela(nome, valor, "in");
-                        printTelaMemoria();
 
                         if (alocado == false) System.out.println("ESPAÇO INSUFICIENTE DE MEMÓRIA.");
 
@@ -188,7 +185,6 @@ public class Gerencia {
                             } 
                         }
                         printTela(nome, 0, "out");
-                        printTelaMemoria();
                     }
                 }
            }
@@ -249,7 +245,6 @@ public class Gerencia {
                         }
                         
                         printTela(nome, valor, "in");
-                        printTelaMemoria();
 
                         if (alocado == false) System.out.println("ESPAÇO INSUFICIENTE DE MEMÓRIA.");
 
@@ -266,7 +261,6 @@ public class Gerencia {
                             } 
                         }
                         printTela(nome, 0, "out");
-                        printTelaMemoria();
                     }
                 }
            }
@@ -319,7 +313,6 @@ public class Gerencia {
                             }
                         }
                         printTela(nome, valor, "in");
-                        printTelaMemoria();
 
                         if (alocado == false) System.out.println("ESPAÇO INSUFICIENTE DE MEMÓRIA.");
 
@@ -336,21 +329,10 @@ public class Gerencia {
                             } 
                         }
                         printTela(nome, 0, "out");
-                        printTelaMemoria();
                     }
                 }
            }
         }
-    }
-
-
-    public void printTelaMemoria(){ //Apenas para testar
-        String mensagem = "";
-        for(int i=0; i<list.length ; i++){
-            mensagem = mensagem + "|" + list[i] + "|";
-        }
-        System.out.println(mensagem);
-        System.out.println();
     }
 
     public void printTela(){
