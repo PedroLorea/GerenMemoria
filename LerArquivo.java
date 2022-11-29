@@ -17,6 +17,7 @@ public class LerArquivo {
         String nome = "";
         String valor = "";
         Dados dados = null;
+        int cont = 0;
 
 
         try {
@@ -25,18 +26,24 @@ public class LerArquivo {
             int num = 1;
             while ((linha = br.readLine()) != null){
                 
+                cont = -1;
                 System.out.println(linha);
 
                 if(linha.substring(0, 1).equalsIgnoreCase("i")){
-                    
+
                     for(int i=3; i<=linha.length(); i++){
                         if(linha.substring(i, i+1).equals(",")) break;
+                        cont++;
+                        System.out.println("cont dentro" + cont);
                         nome = nome + linha.substring(i, i+1);
                     }
 
-                    for(int i=6; i<=linha.length(); i++){
+                    System.out.println("cont" + cont);
+
+                    for(int i=6+cont; i<=linha.length(); i++){
                         if(linha.substring(i, i+1).equals(")")) break;
                         valor = valor + linha.substring(i, i+1);
+                        System.out.println("Valor= " + valor);
                     }
                     
 
@@ -85,7 +92,7 @@ public class LerArquivo {
         //                        + set.getValue());
         // }
         // System.out.println("-----------------------\n");         
-                     
+
         return dados;
     }
 }

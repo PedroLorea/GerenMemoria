@@ -1,0 +1,7 @@
+IN(A, 3)
+IN(b, 2)
+IN(x, 2)
+IN(xsa, 3)
+OUT(b)
+OUT(x)
+IN(b, 2)
