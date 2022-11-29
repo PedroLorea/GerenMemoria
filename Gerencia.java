@@ -72,7 +72,7 @@ public class Gerencia {
                         printTela(nome, valor, "in");
                         printTelaMemoria();
 
-                        if (alocado == false) System.out.println("Espaço insuficiente de memória.");
+                        if (alocado == false) System.out.println("ESPAÇO INSUFICIENTE DE MEMÓRIA.");
 
                     } 
                     else { // Else para se for "out"
@@ -151,7 +151,7 @@ public class Gerencia {
                         printTela(nome, valor, "in");
                         printTelaMemoria();
 
-                        if (alocado == false) System.out.println("Espaço insuficiente de memória.");
+                        if (alocado == false) System.out.println("ESPAÇO INSUFICIENTE DE MEMÓRIA.");
 
                     } 
                     else { // Else para se for "out"
@@ -174,7 +174,65 @@ public class Gerencia {
     }
 
     public void circularFit(){
+        printTelaMemoria();
+        int ponteiro = 0;
 
+        for(int i=1; i<=programa.size(); i++){ //Percorre o hash e procura o número (hash ta com numeros para identificar a ordem)
+
+            for (Map.Entry<String, String> entrada : programa.entrySet()) { //Pega a entrada
+    
+                if(Integer.parseInt(entrada.getKey().substring(0, 1)) == i){ //Ve se é o número 
+
+                    if(entrada.getKey().substring(1, 2).equals("i")){ // If para se for "in"
+                        String nome = entrada.getValue();
+                        int valor = valores.get(nome);
+                        boolean alocado = false;
+                        int inicial = 0;
+                        int contador = 0;
+
+                        for(int j=ponteiro; j<(list.length-ponteiro) + ponteiro; j++){
+
+                            if(list[j] == null) {
+                                if(contador == 0) inicial = j;
+                                contador++;
+
+                                if(contador == valor){
+                                    ponteiro = j;
+                                    for(int k=inicial; k<contador+inicial; k++){
+                                        list[k] = nome;
+                                    }
+                                    alocado = true;
+                                    break;
+                                }
+                            }
+                            else {
+                                contador = 0;
+                            }
+                        }
+                        
+                        printTela(nome, valor, "in");
+                        printTelaMemoria();
+
+                        if (alocado == false) System.out.println("ESPAÇO INSUFICIENTE DE MEMÓRIA.");
+
+                    } 
+                    else { // Else para se for "out"
+                        String nome = entrada.getValue();
+                    
+                        for(int l=0; l<list.length; l++){
+                            if(list[l]==null) {
+                                continue;
+                            }
+                            if(nome.equals(list[l])){
+                                list[l] = null;
+                            } 
+                        }
+                        printTela(nome, 0, "out");
+                        printTelaMemoria();
+                    }
+                }
+           }
+        }
     }
 
 
@@ -215,7 +273,7 @@ public class Gerencia {
                         printTela(nome, valor, "in");
                         printTelaMemoria();
 
-                        if (alocado == false) System.out.println("Espaço insuficiente de memória.");
+                        if (alocado == false) System.out.println("ESPAÇO INSUFICIENTE DE MEMÓRIA.");
 
                     } 
                     else { // Else para se for "out"
@@ -267,7 +325,7 @@ public class Gerencia {
                 if(contadorNull>=1) mensagem = mensagem + "| " + contadorNull + " |" + " ";
                 contadorNull = 0;
             }
-            if(i == list.length-1) mensagem = mensagem + "| " + contadorNull + " |" + " ";
+            if(i == list.length-1 && contadorNull >=1) mensagem = mensagem + "| " + contadorNull + " |" + " ";
         }
        
         if(contadorNull == list.length-1) mensagem = mensagem + "| " + contadorNull + " |";

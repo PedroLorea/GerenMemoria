@@ -67,24 +67,25 @@ public class LerArquivo {
 
         dados = new Dados(programa, valores);
 
-        System.out.println("-------Programa!!-------");
-        for (Map.Entry<String, String> set :
-             programa.entrySet()) {
+        // System.out.println("-------Programa!!-------");
+        // for (Map.Entry<String, String> set :
+        //      programa.entrySet()) {
  
             
-            System.out.println(set.getKey() + " = "
-                               + set.getValue());
-        }
+        //     System.out.println(set.getKey() + " = "
+        //                        + set.getValue());
+        // }
 
-        System.out.println("-------Valores!!----------");
-        for (Map.Entry<String, Integer> set :
-             valores.entrySet()) {
+        // System.out.println("-------Valores!!----------");
+        // for (Map.Entry<String, Integer> set :
+        //      valores.entrySet()) {
  
             
-            System.out.println(set.getKey() + " = "
-                               + set.getValue());
-        }
-        System.out.println("-----------------------\n");                      
+        //     System.out.println(set.getKey() + " = "
+        //                        + set.getValue());
+        // }
+        // System.out.println("-----------------------\n");         
+                     
         return dados;
     }
 }
